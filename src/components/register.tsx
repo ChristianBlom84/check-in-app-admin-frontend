@@ -48,7 +48,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             />
             <label>Password</label>
             <input
-              type="text"
+              type="password"
               name="password"
               placeholder="Please a enter password"
               id=""
