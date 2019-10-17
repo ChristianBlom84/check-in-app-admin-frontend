@@ -7,6 +7,7 @@ import Dashboard from './components/dashboard';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
+
   return (
     <BrowserRouter>
       <Header />
