@@ -3,15 +3,15 @@ import axios from 'axios';
 import { RouteComponentProps } from 'react-router-dom';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [password, setPassword] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     axios
-      .post('http://localhost:7000/api/auth/login/', {
+      .post(`${process.env.REACT_APP_SERVER}api/auth/login/`, {
         email,
-        password,
+        password
       })
       .then(() => {
         history.push('/dashboard');
@@ -31,7 +31,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
               name="email"
               placeholder="Please enter a valid email address"
               id=""
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              onChange={(e: React.FormEvent<HTMLInputElement>): void =>
                 setEmail(e.currentTarget.value)
               }
             />
@@ -41,11 +41,11 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
               name="password"
               placeholder="Please a enter password"
               id=""
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              onChange={(e: React.FormEvent<HTMLInputElement>): void =>
                 setPassword(e.currentTarget.value)
               }
             />
-            <button onClick={(e) => onSubmit(e)}>Login</button>
+            <button onClick={(e): void => onSubmit(e)}>Login</button>
           </form>
         </div>
       </div>

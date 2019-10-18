@@ -7,13 +7,13 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
 
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     axios
       .post('http://localhost:7000/api/users/add/', {
         name,
         email,
-        password,
+        password
       })
       .then(() => {
         history.push('/login');
@@ -32,7 +32,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
               name="username"
               id=""
               placeholder="Please enter name"
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              onChange={(e: React.FormEvent<HTMLInputElement>): void =>
                 setName(e.currentTarget.value)
               }
             />
@@ -42,7 +42,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
               name="email"
               placeholder="Please enter a valid email address"
               id=""
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              onChange={(e: React.FormEvent<HTMLInputElement>): void =>
                 setEmail(e.currentTarget.value)
               }
             />
@@ -52,11 +52,11 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
               name="password"
               placeholder="Please a enter password"
               id=""
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              onChange={(e: React.FormEvent<HTMLInputElement>): void =>
                 setPassword(e.currentTarget.value)
               }
             />
-            <button onClick={(e) => onSubmit(e)}>Register</button>
+            <button onClick={(e): void => onSubmit(e)}>Register</button>
           </form>
         </div>
       </div>
