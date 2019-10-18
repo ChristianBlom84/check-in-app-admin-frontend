@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 import Login from './components/pages/Login';
 import Header from './components/partials/Header';
@@ -7,6 +8,8 @@ import Dashboard from './components/pages/Dashboard';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
+  axios.defaults.withCredentials = true;
+
   return (
     <BrowserRouter>
       <Header />
