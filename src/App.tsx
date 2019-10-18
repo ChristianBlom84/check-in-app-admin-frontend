@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Login from './components/pages/login';
-import Header from './components/partials/header';
-import Register from './components/pages/register';
-import Dashboard from './components/pages/dashboard';
+import Login from './components/pages/Login';
+import Header from './components/partials/Header';
+import Register from './components/pages/Register';
+import Dashboard from './components/pages/Dashboard';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
