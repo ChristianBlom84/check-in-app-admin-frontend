@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './UserList.module.css';
 
 interface User {
   _id: string;
+  name: string;
   email: string;
   role: number;
 }
@@ -13,13 +14,24 @@ interface Props {
 
 const UserList: React.FC<Props> = ({ users }: Props) => {
   return users ? (
-    <div>
-      <ul className={styles.list}>
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          <th>Username:</th>
+          <th>Email:</th>
+        </tr>
+      </thead>
+      <tbody>
         {users.map(user => (
-          <li key={user._id}>{user.email}</li>
+          <Fragment key={user._id}>
+            <tr>
+              <td key={user._id}>{user.name}</td>
+              <td key={user.email}>{user.email}</td>
+            </tr>
+          </Fragment>
         ))}
-      </ul>
-    </div>
+      </tbody>
+    </table>
   ) : (
     <div>Loading...</div>
   );

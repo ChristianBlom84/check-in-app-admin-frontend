@@ -4,23 +4,16 @@
     max-width: 800px;
     border-collapse: collapse;
     border: 1px solid black;
-    margin-bottom: 1rem;
 }
 
 td, th {
-    width: 30%;
     padding: 0.3rem;
     border: 1px solid black;
+    overflow-wrap: break-word;
 }
 
 thead th {
     text-align: center;
-    width: 40%;
-    background-color: #2279FF;
-}
-
-.table tbody tr:nth-child(even) {
-    background-color: lightgray;
 }
 
 @media screen and (min-width: 600px) {
