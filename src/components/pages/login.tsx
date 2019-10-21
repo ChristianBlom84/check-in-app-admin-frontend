@@ -11,7 +11,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const onSubmit = async (e: MouseEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_SERVER}api/auth/login/`, {
+      .post(`${process.env.REACT_APP_SERVER}/api/auth/login/`, {
         email,
         password
       })
