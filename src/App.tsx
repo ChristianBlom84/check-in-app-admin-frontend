@@ -5,15 +5,18 @@ import Header from './components/partials/header';
 import Register from './components/pages/register';
 import Dashboard from './components/pages/dashboard';
 import { BrowserRouter, Route } from 'react-router-dom';
+import AuthContextProvider from './context/authContext';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Route path="/" exact component={Login} />
-      <Route path="/register" exact component={Register} />
-      <Route path="/dashboard" exact component={Dashboard} />
-    </BrowserRouter>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Header />
+        <Route path="/" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/dashboard" exact component={Dashboard} />
+      </BrowserRouter>
+    </AuthContextProvider>
   );
 };
 
