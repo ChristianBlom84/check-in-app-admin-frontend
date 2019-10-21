@@ -10,6 +10,10 @@
     align-items: center;
 }
 
+tbody tr:nth-child(even) {
+    background-color: lightgray;
+}
+
 @media screen and (min-width: 600px) {
     .dashboard {
         flex-flow: row nowrap;

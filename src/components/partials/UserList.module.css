@@ -19,10 +19,6 @@ thead th {
     background-color: #2279FF;
 }
 
-.table tbody tr:nth-child(even) {
-    background-color: lightgray;
-}
-
 @media screen and (min-width: 600px) {
     .table {
         max-width: 90%;
