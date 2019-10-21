@@ -8,8 +8,9 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');
   const context = useContext(AuthContext);
 
-  const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
+  const onSubmit = async (e: MouseEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
+<<<<<<< HEAD
     axios
       .post(`${process.env.REACT_APP_SERVER}api/auth/login/`, {
         email,
@@ -21,6 +22,21 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           history.push('/dashboard');
         }
       });
+=======
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER}/api/auth/login`,
+        {
+          email,
+          password
+        }
+      );
+      console.log(res);
+      history.push('/dashboard');
+    } catch (err) {
+      console.error(err);
+    }
+>>>>>>> master
   };
 
   return (
@@ -51,7 +67,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
                 setPassword(e.currentTarget.value)
               }
             />
-            <button onClick={(e): void => onSubmit(e)}>Login</button>
+            <button onClick={(e): Promise<void> => onSubmit(e)}>Login</button>
           </form>
         </div>
       </div>

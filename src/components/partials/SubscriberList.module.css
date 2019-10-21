@@ -1,0 +1,23 @@
+.table {
+    table-layout: fixed;
+    width: 95%;
+    max-width: 800px;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+td, th {
+    padding: 0.3rem;
+    border: 1px solid black;
+    overflow-wrap: break-word;
+}
+
+thead th {
+    text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+    .table {
+        max-width: 90%;
+    }
+}

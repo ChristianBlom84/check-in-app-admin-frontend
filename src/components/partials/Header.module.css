@@ -1,0 +1,8 @@
+.header {
+    min-height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-image: linear-gradient(#0D56FF, #2782FF);
+}
