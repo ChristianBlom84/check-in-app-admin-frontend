@@ -18,10 +18,22 @@ const Header: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <header className={styles.header}>
-      {context !== undefined && context.authStatus !== false ? (
-        <button onClick={(e): void => handleLogout(e)}>LOG ME OUT</button>
-      ) : null}
-      <h1>Check-In App Admin Panel</h1>
+      <div className={styles.buttonContainer}>
+        {context !== undefined && context.authStatus !== false ? (
+          <button
+            className={styles.headerButton}
+            onClick={(e): void => handleLogout(e)}
+          >
+            LOG ME OUT
+          </button>
+        ) : (
+          <div></div>
+        )}
+      </div>
+      <div className={styles.headerContainer}>
+        {' '}
+        <h1>Check-In App Admin Panel</h1>
+      </div>
     </header>
   );
 };
