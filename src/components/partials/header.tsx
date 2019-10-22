@@ -24,7 +24,7 @@ const Header: React.FC<RouteComponentProps> = ({ history }) => {
             className={styles.headerButton}
             onClick={(e): void => handleLogout(e)}
           >
-            LOG ME OUT
+            Logout
           </button>
         ) : (
           <div></div>
