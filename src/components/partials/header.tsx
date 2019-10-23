@@ -16,16 +16,39 @@ const Header: React.FC<RouteComponentProps> = ({ history }) => {
     history.push('/');
   };
 
+  const goToMessage = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    history.push('/message');
+  };
+  const goToDashBoard = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    history.push('/dashboard');
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.buttonContainer}>
         {context !== undefined && context.authStatus !== false ? (
-          <button
-            className={styles.headerButton}
-            onClick={(e): void => handleLogout(e)}
-          >
-            Logout
-          </button>
+          <div>
+            <button
+              className={styles.headerButton}
+              onClick={(e): void => handleLogout(e)}
+            >
+              Logout
+            </button>
+            <button
+              className={styles.headerButton}
+              onClick={(e): void => goToMessage(e)}
+            >
+              Message
+            </button>
+            <button
+              className={styles.headerButton}
+              onClick={(e): void => goToDashBoard(e)}
+            >
+              Dashboard
+            </button>
+          </div>
         ) : (
           <div></div>
         )}
