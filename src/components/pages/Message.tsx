@@ -1,23 +1,30 @@
-import React, { useState, MouseEvent, useContext } from 'react';
+import React, { useState, MouseEvent, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
 import { RouteComponentProps } from 'react-router-dom';
 
 import axios from 'axios';
-import styles from './Login.module.css';
+import styles from './Message.module.css';
 
 const Message: React.FC<RouteComponentProps> = ({ history }) => {
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState('');
+  const [isDisabled, setDisabled] = useState(false);
+
+  useEffect(() => {}, [message]);
+
   const context = useContext(AuthContext);
 
   const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
+    setDisabled(true);
     axios
       .post(`${process.env.REACT_APP_SERVER}/api/push/send`, {
         message
       })
       .then(() => {
-        console.log('messaeg sent');
-        setMessage('');
+        setTimeout(() => {
+          setMessage('');
+          setDisabled(false);
+        }, 5000);
       })
       .catch(error => console.log(error));
   };
@@ -33,6 +40,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
                 name="message"
                 rows={8}
                 cols={55}
+                value={message}
                 placeholder="Please enter a message"
                 onChange={(e: React.FormEvent<HTMLTextAreaElement>): void =>
                   setMessage(e.currentTarget.value)
@@ -40,8 +48,10 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
               />
               <button
                 className={styles.button}
+                disabled={isDisabled}
                 onClick={(e): void => onSubmit(e)}
               >
+                {' '}
                 Send
               </button>
             </form>

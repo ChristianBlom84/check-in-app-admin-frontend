@@ -1,0 +1,42 @@
+.button {
+  padding: 1vh;
+  border-radius: 4px;
+  margin-top: 2vh;
+  width: 75%;
+  border: 1px solid #5886e8;
+  color: #5886e8;
+  opacity: 0.6;
+  transition: 0.3s;
+  font-display: bold;
+}
+
+.button:hover {
+  background-color: #6dc2ff;
+  color: white;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+input {
+  width: 100%;
+  border-radius: 2px;
+  height: 5vh;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+h2 {
+  text-align: center;
+  padding-top: 5vh;
+}
+
+button:disabled {
+  background-color: red;
+  color: black;
+}
+
+button:disabled:hoover {
+  background-color: red;
+}
