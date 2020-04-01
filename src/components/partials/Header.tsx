@@ -1,13 +1,17 @@
-import React, { useEffect, MouseEvent, useContext } from 'react';
+import React, { useState, useEffect, MouseEvent, useContext } from 'react';
 import axios from 'axios';
-import styles from './Header.module.css';
+import styles from './Header.module.scss';
 import { withRouter } from 'react-router';
-
 import { RouteComponentProps } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import Menu from './Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
+import icon from '../../assets/images/icon-transparent.png';
 
 const Header: React.FC<RouteComponentProps> = ({ history }) => {
   const context = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {}, [context]);
 
@@ -18,51 +22,27 @@ const Header: React.FC<RouteComponentProps> = ({ history }) => {
     const res = await axios.get(
       `${process.env.REACT_APP_SERVER}/api/auth/logout`
     );
-    context!.setAuthStatus(false);
+    if (context) {
+      context.setAuthStatus(false);
+    }
     history.push('/');
-  };
-
-  const goToMessage = (e: MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault();
-    history.push('/message');
-  };
-  const goToDashBoard = (e: MouseEvent<HTMLButtonElement>): void => {
-    e.preventDefault();
-    history.push('/dashboard');
   };
 
   return (
     <header className={styles.header}>
-      <div className={styles.buttonContainer}>
-        {context !== undefined && context.authStatus !== false ? (
-          <div>
-            <button
-              className={styles.headerButton}
-              onClick={(e): Promise<void> => handleLogout(e)}
-            >
-              Logout
-            </button>
-            <button
-              className={styles.headerButton}
-              onClick={(e): void => goToMessage(e)}
-            >
-              Message
-            </button>
-            <button
-              className={styles.headerButton}
-              onClick={(e): void => goToDashBoard(e)}
-            >
-              Dashboard
-            </button>
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
+      {context && context.authStatus ? (
+        <button
+          className={styles.menuIcon}
+          onClick={(): void => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+      ) : null}
       <div className={styles.headerContainer}>
-        {' '}
+        <img src={icon} alt="" />
         <h1>Check-In App Admin Panel</h1>
       </div>
+      {menuOpen ? <Menu menuOpen={menuOpen} /> : null}
     </header>
   );
 };

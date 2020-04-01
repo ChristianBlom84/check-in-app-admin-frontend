@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/authContext';
 import { RouteComponentProps } from 'react-router-dom';
 
 import axios from 'axios';
-import styles from './Message.module.css';
+import styles from './Message.module.scss';
 
 const Message: React.FC<RouteComponentProps> = ({ history }) => {
   const [message, setMessage] = useState('');
@@ -30,7 +30,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   return (
-    <div className="container">
+    <main className="container">
       {context !== undefined && context.authStatus !== false ? (
         <div>
           <div>
@@ -60,7 +60,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
       ) : (
         <div>Please log in</div>
       )}
-    </div>
+    </main>
   );
 };
 

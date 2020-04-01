@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 import Login from './components/pages/Login';
 import Header from './components/partials/Header';
 import Register from './components/pages/Register';

@@ -1,0 +1,38 @@
+
+
+.form {
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 240px;
+    border-radius: 5px;
+    border: 1px solid black;
+    height: 40px;
+    margin-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
+  border-radius: 5px;
+  width: 90px;
+  border: 1px solid #5886e8;
+  color: #5886e8;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: #6dc2ff;
+  color: white;
+}
+
+.button:hover {
+  opacity: 1;
+}

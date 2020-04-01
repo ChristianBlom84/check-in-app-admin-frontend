@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserList from '../partials/UserList';
 import SubscriberList from '../partials/SubscriberList';
-import styles from './Dashboard.module.css';
+import styles from './Dashboard.module.scss';
 
 const Dashboard: React.FC = () => {
   const [users, setUsers] = useState([]);

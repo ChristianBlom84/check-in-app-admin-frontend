@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styles from './SubscriberList.module.css';
+import styles from './SubscriberList.module.scss';
 
 interface Subscriber {
   _id: string;

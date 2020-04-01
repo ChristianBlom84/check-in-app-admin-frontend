@@ -10,7 +10,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     axios
-      .post('http://localhost:7000/api/users/add/', {
+      .post(`${process.env.REACT_APP_SERVER}/api/users/add/`, {
         name,
         email,
         password
@@ -21,7 +21,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   return (
-    <div className="container">
+    <main className="container">
       <h1>Register</h1>
       <div>
         <div>
@@ -60,7 +60,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
           </form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styles from './UserList.module.css';
+import styles from './UserList.module.scss';
 
 interface User {
   _id: string;
