@@ -3,10 +3,17 @@
 
 html {
   font-size: $base-font-size;
+  @include mediumMax {
+    font-size: $mobile-font-size;
+  }
 }
 
 h1, h2 {
   margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 h3 {
@@ -30,6 +37,12 @@ body {
 
 main {
   padding-top: 50px;
+
+  @include medium {
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 240px);
+  }
 }
 
 code {

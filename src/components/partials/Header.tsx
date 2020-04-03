@@ -1,4 +1,10 @@
-import React, { useState, useEffect, MouseEvent, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  MouseEvent,
+  useContext,
+  useRef
+} from 'react';
 import axios from 'axios';
 import styles from './Header.module.scss';
 import { withRouter } from 'react-router';
@@ -9,11 +15,30 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import icon from '../../assets/images/icon-transparent.png';
 
-const Header: React.FC<RouteComponentProps> = ({ history }) => {
+const Header: React.FC<RouteComponentProps> = ({ history, location }) => {
   const context = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuClosing, setMenuClosing] = useState(false);
+  const prevLocation = useRef(location);
 
-  useEffect(() => {}, [context]);
+  const handleClose = (): void => {
+    if (menuOpen) {
+      setMenuClosing(true);
+      setTimeout(() => {
+        setMenuOpen(false);
+        setMenuClosing(false);
+      }, 200);
+    } else {
+      setMenuOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    if (location !== prevLocation.current && menuOpen) {
+      handleClose();
+    }
+    prevLocation.current = location;
+  }, [location]);
 
   const handleLogout = async (
     e: MouseEvent<HTMLButtonElement>
@@ -31,18 +56,18 @@ const Header: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <header className={styles.header}>
       {context && context.authStatus ? (
-        <button
-          className={styles.menuIcon}
-          onClick={(): void => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        <button className={styles.menuIcon} onClick={(): void => handleClose()}>
+          {menuOpen && !menuClosing ? <CloseIcon /> : <MenuIcon />}
         </button>
       ) : null}
-      <div className={styles.headerContainer}>
+      <div
+        className={styles.headerContainer}
+        style={context && context.authStatus ? { marginLeft: '-36px' } : {}}
+      >
         <img src={icon} alt="" />
-        <h1>Check-In App Admin Panel</h1>
+        <h1>Check-In Safe Administration</h1>
       </div>
-      {menuOpen ? <Menu menuOpen={menuOpen} /> : null}
+      {menuOpen ? <Menu menuOpen={menuOpen} menuClosing={menuClosing} /> : null}
     </header>
   );
 };

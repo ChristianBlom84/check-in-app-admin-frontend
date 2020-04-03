@@ -4,9 +4,10 @@ import styles from './Menu.module.scss';
 
 interface Props {
   menuOpen: boolean;
+  menuClosing: boolean;
 }
 
-const Menu: React.FC<Props> = ({ menuOpen }) => {
+const Menu: React.FC<Props> = ({ menuOpen, menuClosing }) => {
   const [delayedOpen, setDelayedOpen] = useState(false);
   useEffect(() => {
     if (menuOpen) {
@@ -17,10 +18,14 @@ const Menu: React.FC<Props> = ({ menuOpen }) => {
   }, [menuOpen]);
 
   return (
-    <nav className={`${styles.menu} ${delayedOpen ? styles.open : ''}`}>
+    <nav
+      className={`${styles.menu} ${
+        delayedOpen && !menuClosing ? styles.open : ''
+      }`}
+    >
       <Link to="/message">Send</Link>
       <Link to="/message">Subscribers</Link>
-      <Link to="/message">Users</Link>
+      <Link to="/users">Users</Link>
     </nav>
   );
 };
