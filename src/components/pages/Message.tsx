@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 import axios from 'axios';
 import styles from './Message.module.scss';
@@ -57,8 +57,10 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
             </form>
           </div>
         </div>
+      ) : context && !context.authStatus ? (
+        <Redirect to="/" />
       ) : (
-        <div>Please log in</div>
+        <div>Loading...</div>
       )}
     </main>
   );

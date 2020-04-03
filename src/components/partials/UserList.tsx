@@ -14,24 +14,17 @@ interface Props {
 
 const UserList: React.FC<Props> = ({ users }: Props) => {
   return users ? (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th>Username:</th>
-          <th>Email:</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map(user => (
-          <Fragment key={user._id}>
-            <tr>
-              <td key={user._id}>{user.name}</td>
-              <td key={user.email}>{user.email}</td>
-            </tr>
-          </Fragment>
-        ))}
-      </tbody>
-    </table>
+    <ul className={styles.list}>
+      {users.map(user => (
+        <li key={user._id}>
+          <h4>{user.name}</h4>
+          <p className={styles.subInfo}>{user.email}</p>
+          <p className={styles.subInfo}>
+            User Role: {user.role === 0 ? 'Standard' : 'Administrator'}
+          </p>
+        </li>
+      ))}
+    </ul>
   ) : (
     <div>Loading...</div>
   );
