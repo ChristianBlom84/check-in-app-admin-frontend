@@ -12,7 +12,6 @@ const Users: React.FC = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_SERVER}/api/users/all`
       );
-      console.log(res.data);
       setUsers(res.data.users);
     } catch (err) {
       console.error(err);

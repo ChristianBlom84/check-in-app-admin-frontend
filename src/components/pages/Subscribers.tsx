@@ -12,7 +12,6 @@ const Subscribers: React.FC = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_SERVER}/api/subscribers/all`
       );
-      console.log(res.data);
       setSubscribers(res.data.subscribers);
     } catch (err) {
       console.error(err);

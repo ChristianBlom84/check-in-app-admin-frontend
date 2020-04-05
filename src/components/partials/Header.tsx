@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  MouseEvent,
-  useContext,
-  useRef
-} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import styles from './Header.module.scss';
 import { withRouter } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
@@ -15,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import icon from '../../assets/images/icon-transparent.png';
 
-const Header: React.FC<RouteComponentProps> = ({ history, location }) => {
+const Header: React.FC<RouteComponentProps> = ({ location }) => {
   const context = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuClosing, setMenuClosing] = useState(false);
@@ -39,19 +32,6 @@ const Header: React.FC<RouteComponentProps> = ({ history, location }) => {
     }
     prevLocation.current = location;
   }, [location]);
-
-  const handleLogout = async (
-    e: MouseEvent<HTMLButtonElement>
-  ): Promise<void> => {
-    e.preventDefault();
-    const res = await axios.get(
-      `${process.env.REACT_APP_SERVER}/api/auth/logout`
-    );
-    if (context) {
-      context.setAuthStatus(false);
-    }
-    history.push('/');
-  };
 
   return (
     <header className={styles.header}>

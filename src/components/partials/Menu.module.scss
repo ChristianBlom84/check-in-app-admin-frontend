@@ -17,6 +17,32 @@
     margin-right: 0;
   }
 
+  a, button {
+    position: relative;
+    font-family: $headings-font;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-color;
+    text-decoration: none;
+    width: 117px;
+    height: 38px;
+    margin-right: 6px;
+    border-radius: 5px;
+    color: black;
+  
+    :visited {
+      color: black;
+    }
+  
+    &:hover {
+      background-color: rgba(47, 129, 237, 0.6);
+    }
+  }
+
+  button {
+    border: none;
+  }
 }
 
 .open {
@@ -25,25 +51,3 @@
   transform: scale(1);
 }
 
-a {
-  position: relative;
-  font-family: $headings-font;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: $primary-color;
-  text-decoration: none;
-  width: 117px;
-  height: 38px;
-  margin-right: 6px;
-  border-radius: 5px;
-  color: black;
-
-  :visited {
-    color: black;
-  }
-
-  &:hover {
-    background-color: rgba(47, 129, 237, 0.6);
-  }
-}

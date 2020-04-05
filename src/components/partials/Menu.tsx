@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext, MouseEvent } from 'react';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import { AuthContext } from '../../context/authContext';
+import Spinner from './Spinner';
 import styles from './Menu.module.scss';
 
 interface Props {
@@ -9,6 +12,9 @@ interface Props {
 
 const Menu: React.FC<Props> = ({ menuOpen, menuClosing }) => {
   const [delayedOpen, setDelayedOpen] = useState(false);
+  const context = useContext(AuthContext);
+  const history = useHistory();
+
   useEffect(() => {
     if (menuOpen) {
       setTimeout(() => {
@@ -17,7 +23,20 @@ const Menu: React.FC<Props> = ({ menuOpen, menuClosing }) => {
     }
   }, [menuOpen]);
 
-  return (
+  const handleLogout = async (
+    e: MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    const res = await axios.get(
+      `${process.env.REACT_APP_SERVER}/api/auth/logout`
+    );
+    if (context) {
+      context.setAuthStatus(false);
+    }
+    history.push('/');
+  };
+
+  return context ? (
     <nav
       className={`${styles.menu} ${
         delayedOpen && !menuClosing ? styles.open : ''
@@ -26,7 +45,10 @@ const Menu: React.FC<Props> = ({ menuOpen, menuClosing }) => {
       <Link to="/message">Send</Link>
       <Link to="/subscribers">Subscribers</Link>
       <Link to="/users">Users</Link>
+      <button onClick={handleLogout}>Logout</button>
     </nav>
+  ) : (
+    <Spinner />
   );
 };
 

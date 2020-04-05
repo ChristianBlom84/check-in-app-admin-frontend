@@ -23,14 +23,12 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
       if (context !== undefined && res.status === 200) {
         context.setAuthStatus(true);
+        console.log(res);
+        context.setRole(res.data.role);
         history.push('/message');
       }
     } catch (error) {
       console.error(error.message);
-
-      const logout = await axios.get(
-        `${process.env.REACT_APP_SERVER}/api/auth/logout`
-      );
     }
   };
 

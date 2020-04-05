@@ -4,7 +4,6 @@ import './App.scss';
 import Login from './components/pages/Login';
 import Header from './components/partials/Header';
 import Register from './components/pages/Register';
-import Dashboard from './components/pages/Dashboard';
 import Users from './components/pages/Users';
 import Subscribers from './components/pages/Subscribers';
 import Message from './components/pages/Message';
@@ -21,7 +20,6 @@ const App: React.FC = () => {
         <Header />
         <Route path="/" exact component={Login} />
         <Route path="/register" exact component={Register} />
-        <PrivateRoute path="/dashboard" exact component={Dashboard} />
         <PrivateRoute path="/users" exact component={Users} />
         <PrivateRoute path="/subscribers" exact component={Subscribers} />
         <PrivateRoute path="/message" exact component={Message} />
