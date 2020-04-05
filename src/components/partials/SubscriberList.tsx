@@ -3,6 +3,7 @@ import styles from './SubscriberList.module.scss';
 
 interface Subscriber {
   _id: string;
+  name: string;
   email: string;
   pushToken: number;
 }
@@ -13,24 +14,22 @@ interface Props {
 
 const SubscriberList: React.FC<Props> = ({ subscribers }: Props) => {
   return subscribers ? (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th>Email:</th>
-          <th>Push Token:</th>
-        </tr>
-      </thead>
-      <tbody>
-        {subscribers.map(subscriber => (
-          <Fragment key={subscriber._id}>
-            <tr>
-              <td key={subscriber._id}>{subscriber.email}</td>
-              <td key={subscriber.pushToken}>{subscriber.pushToken}</td>
-            </tr>
-          </Fragment>
-        ))}
-      </tbody>
-    </table>
+    <ul className={styles.list}>
+      {subscribers.map(subscriber => (
+        <li key={subscriber._id}>
+          <p>
+            Name: <span className={styles.subInfo}>{subscriber.name}</span>
+          </p>
+          <p>
+            Email: <span className={styles.subInfo}>{subscriber.email}</span>
+          </p>
+          <p>
+            Push Token:{' '}
+            <span className={styles.subInfo}>{subscriber.pushToken}</span>
+          </p>
+        </li>
+      ))}
+    </ul>
   ) : (
     <div>Loading...</div>
   );

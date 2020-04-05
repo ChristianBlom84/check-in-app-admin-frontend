@@ -1,23 +1,16 @@
-.table {
-    table-layout: fixed;
-    width: 95%;
-    max-width: 800px;
-    border-collapse: collapse;
-    border: 1px solid black;
-}
+.list {
+  list-style: none;
 
-td, th {
-    padding: 0.3rem;
-    border: 1px solid black;
-    overflow-wrap: break-word;
-}
+  h4 {
+    margin-bottom: 0;
+  }
 
-thead th {
-    text-align: center;
+  li {
+    margin-bottom: 0.5rem;
+  }
 }
-
-@media screen and (min-width: 600px) {
-    .table {
-        max-width: 90%;
-    }
+  
+.subInfo {
+  color: rgba(0, 0, 0, 0.6);
 }
+  
