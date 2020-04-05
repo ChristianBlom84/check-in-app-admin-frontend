@@ -9,7 +9,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');
   const context = useContext(AuthContext);
 
-  const onSubmit = async (e: React.FormEvent): Promise<void> => {
+  const onSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
 
     try {

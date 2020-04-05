@@ -18,9 +18,14 @@ const UserList: React.FC<Props> = ({ users }: Props) => {
       {users.map(user => (
         <li key={user._id}>
           <h4>{user.name}</h4>
-          <p className={styles.subInfo}>{user.email}</p>
-          <p className={styles.subInfo}>
-            User Role: {user.role === 0 ? 'Standard' : 'Administrator'}
+          <p>
+            Email: <span className={styles.subInfo}>{user.email}</span>
+          </p>
+          <p>
+            User Role:{' '}
+            <span className={styles.subInfo}>
+              {user.role === 0 ? 'Standard' : 'Administrator'}
+            </span>
           </p>
         </li>
       ))}

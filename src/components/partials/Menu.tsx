@@ -24,7 +24,7 @@ const Menu: React.FC<Props> = ({ menuOpen, menuClosing }) => {
       }`}
     >
       <Link to="/message">Send</Link>
-      <Link to="/message">Subscribers</Link>
+      <Link to="/subscribers">Subscribers</Link>
       <Link to="/users">Users</Link>
     </nav>
   );

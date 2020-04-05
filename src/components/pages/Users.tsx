@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserList from '../partials/UserList';
+import Spinner from '../partials/Spinner';
 import styles from './Users.module.scss';
 
 const Users: React.FC = () => {
@@ -31,7 +32,7 @@ const Users: React.FC = () => {
       </div>
     </main>
   ) : (
-    <div>Loading...</div>
+    <Spinner />
   );
 };
 
