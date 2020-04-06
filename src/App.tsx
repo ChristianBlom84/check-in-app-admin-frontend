@@ -8,6 +8,7 @@ import Users from './components/pages/Users';
 import Subscribers from './components/pages/Subscribers';
 import Message from './components/pages/Message';
 import PrivateRoute from './components/routing/PrivateRoute';
+import AdminRoute from './components/routing/AdminRoute';
 import { BrowserRouter, Route } from 'react-router-dom';
 import AuthContextProvider from './context/authContext';
 
@@ -20,7 +21,7 @@ const App: React.FC = () => {
         <Header />
         <Route path="/" exact component={Login} />
         <Route path="/register" exact component={Register} />
-        <PrivateRoute path="/users" exact component={Users} />
+        <AdminRoute path="/users" exact component={Users} />
         <PrivateRoute path="/subscribers" exact component={Subscribers} />
         <PrivateRoute path="/message" exact component={Message} />
       </BrowserRouter>
