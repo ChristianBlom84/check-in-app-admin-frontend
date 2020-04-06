@@ -7,6 +7,7 @@ import styles from './Login.module.scss';
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const context = useContext(AuthContext);
 
   const onSubmit = async (e: FormEvent): Promise<void> => {
@@ -28,7 +29,11 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
         history.push('/message');
       }
     } catch (error) {
-      console.error(error.message);
+      console.log(error);
+      setError('Login failed. Please check your email and password.');
+      setTimeout(() => {
+        setError('');
+      }, 2000);
     }
   };
 
@@ -70,6 +75,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             Login
           </button>
         </form>
+        <p className={styles.errorMessage}>{error ? error : null}</p>
       </div>
     </main>
   );
