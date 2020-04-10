@@ -1,4 +1,4 @@
-import React, { useState, useContext, FormEvent } from 'react';
+import React, { useState, useContext, FormEvent, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/authContext';
 import { RouteComponentProps } from 'react-router-dom';
@@ -9,6 +9,11 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const context = useContext(AuthContext);
+  useEffect(() => {
+    if (context && context.authStatus) {
+      history.push('/message');
+    }
+  }, [context]);
 
   const onSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();

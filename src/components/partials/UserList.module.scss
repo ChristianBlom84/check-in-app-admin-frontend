@@ -1,12 +1,28 @@
+@import 'variables';
+
 .list {
   list-style: none;
+
+  @include medium {
+    width: 520px;
+  }
 
   h4 {
     margin-bottom: 0;
   }
 
-  li {
-    margin-bottom: 0.5rem;
+  .user {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 }
 
