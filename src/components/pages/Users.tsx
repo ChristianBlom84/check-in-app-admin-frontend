@@ -5,7 +5,7 @@ import UserList from '../partials/UserList';
 import Spinner from '../partials/Spinner';
 import styles from './Users.module.scss';
 
-interface User {
+export interface User {
   _id?: string;
   name: string;
   email: string;
