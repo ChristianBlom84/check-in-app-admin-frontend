@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserRoles } from '../../context/authContext';
 import UserList from '../partials/UserList';
+import UserModal from '../partials/UserModal';
 import Spinner from '../partials/Spinner';
 import styles from './Users.module.scss';
 
@@ -15,7 +16,7 @@ export interface User {
 const Users: React.FC = () => {
   const [users, setUsers] = useState([]);
   const [editing, setEditing] = useState(false);
-  const [editInfo, setEditInfo] = useState<User | undefined>();
+  const [editInfo, setEditInfo] = useState<User>();
 
   const fetchUsers = async (): Promise<void> => {
     try {
@@ -34,6 +35,9 @@ const Users: React.FC = () => {
 
   return users ? (
     <main className={styles.main}>
+      {editing && editInfo ? (
+        <UserModal editInfo={editInfo} setEditing={setEditing} />
+      ) : null}
       <div className={styles.userList}>
         <h2>Organization Name</h2>
         <h3>Users:</h3>

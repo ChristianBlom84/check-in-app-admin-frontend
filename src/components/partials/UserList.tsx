@@ -21,9 +21,9 @@ const UserList: React.FC<Props> = ({
   setEditing,
   setEditInfo
 }: Props) => {
-  const openModal = async (user: User): Promise<void> => {
-    await setEditInfo({ name: user.name, email: user.email, role: user.role });
-    await setEditing(true);
+  const openModal = (user: User): void => {
+    setEditInfo({ name: user.name, email: user.email, role: user.role });
+    setEditing(true);
   };
 
   return users ? (
@@ -42,7 +42,7 @@ const UserList: React.FC<Props> = ({
               </span>
             </p>
           </div>
-          <button onClick={(): Promise<void> => openModal(user)}>
+          <button onClick={(): void => openModal(user)}>
             <EditIcon />
           </button>
         </li>
