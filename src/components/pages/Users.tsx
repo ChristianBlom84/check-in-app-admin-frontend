@@ -6,15 +6,26 @@ import UserModal from '../partials/UserModal';
 import Spinner from '../partials/Spinner';
 import styles from './Users.module.scss';
 
+export interface Notification {
+  message: string;
+  id: string;
+  user: string;
+  organization?: string;
+  date: Date;
+}
 export interface User {
   _id?: string;
   name: string;
   email: string;
+  notifications?: Notification[];
+  organization?: string;
+  password?: string;
+  passwordCheck?: string;
   role: UserRoles;
 }
 
 const Users: React.FC = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>();
   const [editing, setEditing] = useState(false);
   const [editInfo, setEditInfo] = useState<User>();
 
@@ -36,7 +47,12 @@ const Users: React.FC = () => {
   return users ? (
     <main className={styles.main}>
       {editing && editInfo ? (
-        <UserModal editInfo={editInfo} setEditing={setEditing} />
+        <UserModal
+          editInfo={editInfo}
+          setEditing={setEditing}
+          users={users}
+          setUsers={setUsers}
+        />
       ) : null}
       <div className={styles.userList}>
         <h2>Organization Name</h2>
