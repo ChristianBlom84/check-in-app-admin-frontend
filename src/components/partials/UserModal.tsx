@@ -25,6 +25,8 @@ const UserModal: React.FC<Props> = ({
     role: editInfo.role
   });
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [sending, setSending] = useState(false);
 
   const handleCloseModal = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -35,6 +37,7 @@ const UserModal: React.FC<Props> = ({
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+    setSending(true);
 
     if (formData.password && formData.passwordCheck !== formData.password) {
       setError('Passwords do not match.');
@@ -61,6 +64,14 @@ const UserModal: React.FC<Props> = ({
         });
         setUsers(newUsers);
       }
+
+      setTimeout(() => {
+        setSending(false);
+        setSuccessMessage('Changes successfully saved!');
+        setTimeout(() => {
+          setEditing(false);
+        }, 1200);
+      }, 400);
     }
   };
 
@@ -69,8 +80,13 @@ const UserModal: React.FC<Props> = ({
       className={styles.background}
       onClick={(e): void => handleCloseModal(e)}
     >
-      <div className={styles.modal} onClick={(e): void => e.stopPropagation()}>
-        {editInfo ? (
+      <div
+        className={`${styles.modal} ${
+          successMessage ? styles.successMessage : ''
+        }`}
+        onClick={(e): void => e.stopPropagation()}
+      >
+        {editInfo && !successMessage ? (
           <form className={styles.form} action="post" onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
@@ -130,8 +146,10 @@ const UserModal: React.FC<Props> = ({
               <option value={0}>Standard</option>
               <option value={1}>Administrator</option>
             </select>
-            <button type="submit">Save</button>
+            {sending ? <Spinner /> : <button type="submit">Save</button>}
           </form>
+        ) : successMessage ? (
+          <span>{successMessage}</span>
         ) : (
           <Spinner />
         )}
