@@ -27,7 +27,8 @@ export interface User {
 const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>();
   const [editing, setEditing] = useState(false);
-  const [editInfo, setEditInfo] = useState<User>();
+  const [newUser, setNewUser] = useState(false);
+  const [editInfo, setEditInfo] = useState<User | undefined>();
 
   const fetchUsers = async (): Promise<void> => {
     try {
@@ -46,12 +47,14 @@ const Users: React.FC = () => {
 
   return users ? (
     <main className={styles.main}>
-      {editing && editInfo ? (
+      {editing ? (
         <UserModal
           editInfo={editInfo}
           setEditing={setEditing}
+          setEditInfo={setEditInfo}
           users={users}
           setUsers={setUsers}
+          newUser={newUser}
         />
       ) : null}
       <div className={styles.userList}>
@@ -61,6 +64,8 @@ const Users: React.FC = () => {
           setEditing={setEditing}
           setEditInfo={setEditInfo}
           users={users}
+          newUser={newUser}
+          setNewUser={setNewUser}
         />
       </div>
     </main>

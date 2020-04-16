@@ -1,44 +1,53 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import axios, { AxiosResponse } from 'axios';
 import Spinner from './Spinner';
 import styles from './UserModal.module.scss';
 import { User } from '../pages/Users';
 
 interface Props {
-  editInfo: User;
+  editInfo: User | undefined;
+  setEditInfo: (user: User | undefined) => void;
   setEditing: (state: boolean) => void;
   users: User[];
   setUsers: (users: User[]) => void;
+  newUser: boolean;
 }
 
 const UserModal: React.FC<Props> = ({
   editInfo,
+  setEditInfo,
   setEditing,
   users,
-  setUsers
+  setUsers,
+  newUser
 }: Props) => {
   const [formData, setFormData] = useState({
-    name: editInfo.name,
-    email: editInfo.email,
+    name: editInfo ? editInfo.name : '',
+    email: editInfo ? editInfo.email : '',
     password: '',
     passwordCheck: '',
-    role: editInfo.role
+    role: editInfo ? editInfo.role : 0
   });
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [sending, setSending] = useState(false);
+  const [backgroundVisible, setBackgroundVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setBackgroundVisible(true);
+    }, 10);
+  }, []);
 
   const handleCloseModal = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ): void => {
     e.stopPropagation();
     setEditing(false);
+    setEditInfo(undefined);
   };
 
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-    setSending(true);
-
+  const updateUser = async (e: React.FormEvent): Promise<void> => {
     if (formData.password && formData.passwordCheck !== formData.password) {
       setError('Passwords do not match.');
       setTimeout(() => {
@@ -75,18 +84,98 @@ const UserModal: React.FC<Props> = ({
     }
   };
 
+  const createUser = async (e: React.FormEvent): Promise<void> => {
+    if (formData.password && formData.passwordCheck !== formData.password) {
+      setError('Passwords do not match.');
+      setTimeout(() => {
+        setError('');
+      }, 2000);
+    } else {
+      try {
+        const res = await axios.post<User>(
+          `${process.env.REACT_APP_SERVER}/api/users/add`,
+          {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            role: formData.role
+          }
+        );
+
+        setUsers([...users, res.data]);
+        setTimeout(() => {
+          setSending(false);
+          setSuccessMessage('Changes successfully saved!');
+          setTimeout(() => {
+            setEditing(false);
+          }, 1200);
+        }, 400);
+      } catch (error) {
+        console.error(error.message);
+        setTimeout(() => {
+          setSending(false);
+          setSuccessMessage('Could not create user.');
+          setTimeout(() => {
+            setEditing(false);
+          }, 1200);
+        }, 400);
+      }
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+    setSending(true);
+    if (newUser) {
+      await createUser(e);
+    } else {
+      await updateUser(e);
+    }
+  };
+
+  const handleDelete = async (): Promise<void> => {
+    setSending(true);
+
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_SERVER}/api/users/delete/${
+          editInfo ? editInfo.email : ''
+        }`
+      );
+
+      if (res.status === 200) {
+        const newUsers = users.filter(user => {
+          return user._id !== res.data._id;
+        });
+        setUsers(newUsers);
+      }
+
+      setTimeout(() => {
+        setSending(false);
+        setSuccessMessage('User successfully deleted!');
+        setTimeout(() => {
+          setEditing(false);
+        }, 1200);
+      }, 400);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <div
-      className={styles.background}
+      className={`${styles.background} ${
+        backgroundVisible ? styles.fadeIn : ''
+      }`}
       onClick={(e): void => handleCloseModal(e)}
     >
       <div
         className={`${styles.modal} ${
           successMessage ? styles.successMessage : ''
-        }`}
+        } ${backgroundVisible ? styles.growIn : ''}`}
         onClick={(e): void => e.stopPropagation()}
       >
-        {editInfo && !successMessage ? (
+        {!successMessage ? (
           <form className={styles.form} action="post" onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
@@ -146,7 +235,24 @@ const UserModal: React.FC<Props> = ({
               <option value={0}>Standard</option>
               <option value={1}>Administrator</option>
             </select>
-            {sending ? <Spinner /> : <button type="submit">Save</button>}
+            {sending ? (
+              <Spinner />
+            ) : (
+              <div className={styles.ctaButtons}>
+                <button className={styles.button} type="submit">
+                  Save
+                </button>
+                {editInfo ? (
+                  <button
+                    className={`${styles.delete} ${styles.button}`}
+                    type="button"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </button>
+                ) : null}
+              </div>
+            )}
           </form>
         ) : successMessage ? (
           <span>{successMessage}</span>
