@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useContext, useEffect, useState } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import Spinner from '../partials/Spinner';
 import { AuthContext } from '../../context/authContext';
 import { checkCurrentUser } from '../../utils/CheckCurrentUser';
 
