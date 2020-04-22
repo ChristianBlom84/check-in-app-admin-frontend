@@ -42,7 +42,11 @@ const Header: React.FC<RouteComponentProps> = ({ location }) => {
       ) : null}
       <div
         className={styles.headerContainer}
-        style={context && context.authStatus ? { marginLeft: '-36px' } : {}}
+        style={
+          context && context.authStatus && window.innerWidth > 767
+            ? { marginLeft: '-36px' }
+            : {}
+        }
       >
         <img src={icon} alt="" />
         <h1>Check-In Safe Administration</h1>
