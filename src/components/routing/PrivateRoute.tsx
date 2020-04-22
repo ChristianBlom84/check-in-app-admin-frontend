@@ -17,11 +17,15 @@ const PrivateRoute = (props: Props) => {
   useEffect(() => {
     if (context && !context.authStatus) {
       (async () => {
-        const user = await checkCurrentUser();
-        if (user) {
-          context.setAuthStatus(true);
-          context.setRole(user.role);
-          context.setLoading(false);
+        try {
+          const user = await checkCurrentUser();
+          if (user) {
+            context.setAuthStatus(true);
+            context.setRole(user.role);
+            setLoading(false);
+          }
+        } catch (error) {
+          setLoading(false);
         }
       })();
     } else {
