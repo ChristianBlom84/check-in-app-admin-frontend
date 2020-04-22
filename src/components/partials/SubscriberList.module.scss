@@ -47,6 +47,16 @@
   
 }
 
+.subInfoList {
+  @include smallMax {
+    max-width: 300px;
+  }
+}
+
 .subInfo {
   color: rgba(0, 0, 0, 0.6);
+  display: block;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -31,7 +31,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   return (
-    <main className="container">
+    <main className={styles.main}>
       {context !== undefined && context.authStatus !== false ? (
         <div>
           <h2>Organization Name</h2>
@@ -48,7 +48,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
               name="message"
               spellCheck={false}
               rows={8}
-              cols={55}
+              cols={window.innerWidth > 767 ? 55 : 30}
               value={message}
               placeholder="Please enter a message..."
               onChange={(e: React.FormEvent<HTMLTextAreaElement>): void =>

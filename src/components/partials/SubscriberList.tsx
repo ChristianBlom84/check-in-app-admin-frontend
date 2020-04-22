@@ -28,7 +28,7 @@ const SubscriberList: React.FC<Props> = ({
     <ul className={styles.list}>
       {subscribers.map(subscriber => (
         <li className={styles.subscriber} key={subscriber._id}>
-          <div>
+          <div className={styles.subInfoList}>
             <h4>{subscriber.name}</h4>
             <p>
               Email: <span className={styles.subInfo}>{subscriber.email}</span>

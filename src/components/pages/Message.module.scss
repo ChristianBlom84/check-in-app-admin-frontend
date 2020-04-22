@@ -1,5 +1,19 @@
 @import 'variables';
 
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+
+
+}
+
+.formContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0 1rem;
+}
+
 .button {
   display: flex;
   justify-content: center;

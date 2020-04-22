@@ -9,7 +9,7 @@
   padding: 6px;
   display: flex;
   transform: scale(0);
-  background: rgba(255, 255, 255, 0.5);
+  background: rgb(255, 255, 255);
 
   transition: all 0.2s ease-in;
 
@@ -36,7 +36,7 @@
     }
   
     &:hover {
-      background-color: rgba(47, 129, 237, 0.6);
+      background-color: rgb(99, 156, 231);
     }
   }
 
