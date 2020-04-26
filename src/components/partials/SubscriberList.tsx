@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { useContext } from 'react';
 import { Subscriber } from '../pages/Subscribers';
+import { AuthContext } from '../../context/authContext';
 import styles from './SubscriberList.module.scss';
 import EditIcon from '@material-ui/icons/Edit';
+import { UserRoles } from '../../context/authContext';
 
 interface Props {
   subscribers: Subscriber[];
@@ -23,6 +25,7 @@ const SubscriberList: React.FC<Props> = ({
     });
     setEditing(true);
   };
+  const context = useContext(AuthContext);
 
   return subscribers ? (
     <ul className={styles.list}>
@@ -42,9 +45,11 @@ const SubscriberList: React.FC<Props> = ({
               <span className={styles.subInfo}>{subscriber.pushToken}</span>
             </p>
           </div>
-          <button onClick={(): void => openModal(subscriber)}>
-            <EditIcon />
-          </button>
+          {context && context.role === UserRoles.Admin ? (
+            <button onClick={(): void => openModal(subscriber)}>
+              <EditIcon />
+            </button>
+          ) : null}
         </li>
       ))}
     </ul>
