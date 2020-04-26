@@ -7,26 +7,34 @@ import styles from './Message.module.scss';
 
 const Message: React.FC<RouteComponentProps> = ({ history }) => {
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
   const [isDisabled, setDisabled] = useState(false);
-
-  useEffect(() => {}, [message]);
 
   const context = useContext(AuthContext);
 
   const onSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    await setDisabled(true);
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVER}/api/push/send`,
-        {
-          message
-        }
-      );
-      setMessage('');
-      setDisabled(false);
-    } catch (error) {
-      console.error(error.message);
+    setError('');
+
+    if (message) {
+      setDisabled(true);
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_SERVER}/api/push/send`,
+          {
+            message
+          }
+        );
+        setMessage('');
+        setDisabled(false);
+      } catch (error) {
+        console.error(error.message);
+      }
+    } else {
+      setError('The message field cannot be empty.');
+      setTimeout(() => {
+        setError('');
+      }, 2000);
     }
   };
 
@@ -59,6 +67,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
               {isDisabled ? <Spinner /> : 'Send'}
             </button>
           </form>
+          <p className={styles.errorMessage}>{error ? error : null}</p>
         </div>
       ) : context && !context.authStatus ? (
         <Redirect to="/" />
