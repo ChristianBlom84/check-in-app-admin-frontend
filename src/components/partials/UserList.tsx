@@ -1,14 +1,8 @@
 import React, { Fragment } from 'react';
 import { UserRoles } from '../../context/authContext';
+import { User, Notification } from '../pages/Users';
 import EditIcon from '@material-ui/icons/Edit';
 import styles from './UserList.module.scss';
-
-interface User {
-  _id?: string;
-  name: string;
-  email: string;
-  role: UserRoles;
-}
 
 interface Props {
   users: User[];
@@ -45,6 +39,14 @@ const UserList: React.FC<Props> = ({
                   {user.role === 0 ? 'Standard' : 'Administrator'}
                 </span>
               </p>
+              <p>Notifications: </p>
+              {user.notifications
+                ? user.notifications.map(notification => (
+                    <span className={styles.subInfo} key={notification._id}>
+                      {notification.message}
+                    </span>
+                  ))
+                : null}
             </div>
             <button onClick={(): void => openModal(user)}>
               <EditIcon />

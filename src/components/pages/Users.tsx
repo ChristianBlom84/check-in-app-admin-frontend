@@ -7,8 +7,8 @@ import Spinner from '../partials/Spinner';
 import styles from './Users.module.scss';
 
 export interface Notification {
+  _id: string;
   message: string;
-  id: string;
   user: string;
   organization?: string;
   date: Date;
