@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { UserRoles } from '../../context/authContext';
-import { User, Notification } from '../pages/Users';
+import { User } from '../pages/Users';
 import EditIcon from '@material-ui/icons/Edit';
 import styles from './UserList.module.scss';
 
@@ -39,14 +39,18 @@ const UserList: React.FC<Props> = ({
                   {user.role === 0 ? 'Standard' : 'Administrator'}
                 </span>
               </p>
-              <p>Notifications: </p>
-              {user.notifications
-                ? user.notifications.map(notification => (
-                    <span className={styles.subInfo} key={notification._id}>
-                      {notification.message}
-                    </span>
-                  ))
-                : null}
+              <p>
+                Notifications:{' '}
+                {user.notifications
+                  ? user.notifications.map(notification => (
+                      <Fragment key={notification._id}>
+                        <span className={styles.subInfo}>
+                          Message: {notification.message}
+                        </span>
+                      </Fragment>
+                    ))
+                  : null}
+              </p>
             </div>
             <button onClick={(): void => openModal(user)}>
               <EditIcon />
