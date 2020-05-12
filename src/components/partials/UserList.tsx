@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { UserRoles } from '../../context/authContext';
 import { User } from '../pages/Users';
 import EditIcon from '@material-ui/icons/Edit';
@@ -18,6 +18,7 @@ const UserList: React.FC<Props> = ({
   setEditing,
   setEditInfo
 }: Props) => {
+  const [notificationsExpanded, setNotificationsExpanded] = useState(false);
   const openModal = (user: User): void => {
     setEditInfo({ name: user.name, email: user.email, role: user.role });
     setEditing(true);
@@ -39,18 +40,29 @@ const UserList: React.FC<Props> = ({
                   {user.role === 0 ? 'Standard' : 'Administrator'}
                 </span>
               </p>
-              <p>
-                Notifications:{' '}
-                {user.notifications
+              <div>
+                <p>
+                  Sent notifications:{' '}
+                  <div
+                    className={styles.arrowBox}
+                    onClick={(): void =>
+                      setNotificationsExpanded(!notificationsExpanded)
+                    }
+                  >
+                    <i className="arrow-down"></i>
+                  </div>
+                </p>
+                {user.notifications && notificationsExpanded
                   ? user.notifications.map(notification => (
-                      <Fragment key={notification._id}>
+                      <p key={notification._id}>
+                        Message:{' '}
                         <span className={styles.subInfo}>
-                          Message: {notification.message}
+                          {notification.message}
                         </span>
-                      </Fragment>
+                      </p>
                     ))
                   : null}
-              </p>
+              </div>
             </div>
             <button onClick={(): void => openModal(user)}>
               <EditIcon />
