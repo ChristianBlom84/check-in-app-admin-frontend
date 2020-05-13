@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { UserRoles } from '../../context/authContext';
 import { User } from '../pages/Users';
 import EditIcon from '@material-ui/icons/Edit';
@@ -18,16 +18,37 @@ const UserList: React.FC<Props> = ({
   setEditing,
   setEditInfo
 }: Props) => {
-  const [notificationsExpanded, setNotificationsExpanded] = useState(false);
+  const [notificationsExpanded, setNotificationsExpanded] = useState<boolean[]>(
+    []
+  );
+
+  useEffect(() => {
+    console.log('Useeffect');
+    const notificationArrows: boolean[] = [];
+
+    users.forEach(() => {
+      notificationArrows.push(false);
+    });
+
+    setNotificationsExpanded(notificationArrows);
+  }, [users]);
+
   const openModal = (user: User): void => {
     setEditInfo({ name: user.name, email: user.email, role: user.role });
     setEditing(true);
   };
 
+  const handleShowNotifications = (index: number): void => {
+    const newNotificationsExpanded = notificationsExpanded;
+    newNotificationsExpanded[index] = !newNotificationsExpanded[index];
+    setNotificationsExpanded(newNotificationsExpanded);
+    console.log(index);
+  };
+
   return users ? (
     <Fragment>
       <ul className={styles.list}>
-        {users.map(user => (
+        {users.map((user, index) => (
           <li className={styles.user} key={user._id}>
             <div>
               <h4>{user.name}</h4>
@@ -40,19 +61,18 @@ const UserList: React.FC<Props> = ({
                   {user.role === 0 ? 'Standard' : 'Administrator'}
                 </span>
               </p>
-              <div>
-                <p>
+              <div onClick={(): void => handleShowNotifications(index)}>
+                <div className={styles.notificationsBox}>
                   Sent notifications:{' '}
-                  <div
-                    className={styles.arrowBox}
-                    onClick={(): void =>
-                      setNotificationsExpanded(!notificationsExpanded)
-                    }
-                  >
-                    <i className="arrow-down"></i>
+                  <div className={styles.arrowBox}>
+                    <i
+                      className={
+                        notificationsExpanded[index] ? 'arrow-up' : 'arrow-down'
+                      }
+                    ></i>
                   </div>
-                </p>
-                {user.notifications && notificationsExpanded
+                </div>
+                {user.notifications && notificationsExpanded[index]
                   ? user.notifications.map(notification => (
                       <p key={notification._id}>
                         Message:{' '}
