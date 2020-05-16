@@ -70,16 +70,21 @@ const UserList: React.FC<Props> = ({
                       ></i>
                     </div>
                   </div>
-                  {user.notifications && notificationsExpanded[index]
-                    ? user.notifications.map(notification => (
-                        <p key={notification._id}>
-                          Message:{' '}
-                          <span className={styles.subInfo}>
-                            {notification.message}
-                          </span>
-                        </p>
-                      ))
-                    : null}
+                  <div className={styles.notificationsGroup}>
+                    {user.notifications && notificationsExpanded[index]
+                      ? user.notifications.map(notification => (
+                          <div
+                            className={styles.notifications}
+                            key={notification._id}
+                          >
+                            Message:{' '}
+                            <span className={styles.subInfo}>
+                              {notification.message}
+                            </span>
+                          </div>
+                        ))
+                      : null}
+                  </div>
                 </div>
               )}
             </div>

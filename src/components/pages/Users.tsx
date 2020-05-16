@@ -58,7 +58,7 @@ const Users: React.FC = () => {
         />
       ) : null}
       <div className={styles.userList}>
-        <h2>Organization Name</h2>
+        <h2>Making Waves</h2>
         <h3>Users:</h3>
         <UserList
           setEditing={setEditing}
