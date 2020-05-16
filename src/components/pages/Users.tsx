@@ -7,8 +7,8 @@ import Spinner from '../partials/Spinner';
 import styles from './Users.module.scss';
 
 export interface Notification {
+  _id: string;
   message: string;
-  id: string;
   user: string;
   organization?: string;
   date: Date;
@@ -58,7 +58,7 @@ const Users: React.FC = () => {
         />
       ) : null}
       <div className={styles.userList}>
-        <h2>Organization Name</h2>
+        <h2>Making Waves</h2>
         <h3>Users:</h3>
         <UserList
           setEditing={setEditing}

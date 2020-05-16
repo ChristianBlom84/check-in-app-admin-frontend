@@ -1,14 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { UserRoles } from '../../context/authContext';
+import { User } from '../pages/Users';
 import EditIcon from '@material-ui/icons/Edit';
 import styles from './UserList.module.scss';
-
-interface User {
-  _id?: string;
-  name: string;
-  email: string;
-  role: UserRoles;
-}
 
 interface Props {
   users: User[];
@@ -24,15 +18,32 @@ const UserList: React.FC<Props> = ({
   setEditing,
   setEditInfo
 }: Props) => {
+  const [notificationsExpanded, setNotificationsExpanded] = useState<boolean[]>(
+    () => {
+      const notifications: boolean[] = [];
+      users.forEach(() => {
+        notifications.push(false);
+      });
+      return notifications;
+    }
+  );
+
   const openModal = (user: User): void => {
     setEditInfo({ name: user.name, email: user.email, role: user.role });
     setEditing(true);
   };
 
+  const handleShowNotifications = (index: number): void => {
+    const newNotificationsExpanded = [...notificationsExpanded];
+    newNotificationsExpanded[index] = !newNotificationsExpanded[index];
+    setNotificationsExpanded(newNotificationsExpanded);
+    console.log(notificationsExpanded);
+  };
+
   return users ? (
     <Fragment>
       <ul className={styles.list}>
-        {users.map(user => (
+        {users.map((user, index) => (
           <li className={styles.user} key={user._id}>
             <div>
               <h4>{user.name}</h4>
@@ -45,6 +56,37 @@ const UserList: React.FC<Props> = ({
                   {user.role === 0 ? 'Standard' : 'Administrator'}
                 </span>
               </p>
+              {user.notifications && user.notifications.length > 0 && (
+                <div onClick={(): void => handleShowNotifications(index)}>
+                  <div className={styles.notificationsBox}>
+                    Sent notifications:{' '}
+                    <div className={styles.arrowBox}>
+                      <i
+                        className={
+                          notificationsExpanded[index] === true
+                            ? 'arrow-up'
+                            : 'arrow-down'
+                        }
+                      ></i>
+                    </div>
+                  </div>
+                  <div className={styles.notificationsGroup}>
+                    {user.notifications && notificationsExpanded[index]
+                      ? user.notifications.map(notification => (
+                          <div
+                            className={styles.notifications}
+                            key={notification._id}
+                          >
+                            Message:{' '}
+                            <span className={styles.subInfo}>
+                              {notification.message}
+                            </span>
+                          </div>
+                        ))
+                      : null}
+                  </div>
+                </div>
+              )}
             </div>
             <button onClick={(): void => openModal(user)}>
               <EditIcon />

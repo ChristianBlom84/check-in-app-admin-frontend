@@ -42,7 +42,7 @@ const Message: React.FC<RouteComponentProps> = ({ history }) => {
     <main className={styles.main}>
       {context !== undefined && context.authStatus !== false ? (
         <div>
-          <h2>Organization Name</h2>
+          <h2>Making Waves</h2>
           <p className="preamble">
             Sign in to administrate your organization and send out push
             notifications.

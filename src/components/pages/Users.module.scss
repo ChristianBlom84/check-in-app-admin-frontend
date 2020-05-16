@@ -8,6 +8,6 @@
   @include medium {
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 240px);
+    min-height: calc(100vh - 240px);
   }
 }
